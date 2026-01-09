@@ -8,7 +8,7 @@ import { ref, onMounted } from 'vue'
   const getMessage = async () => {
     try {
       // Ask the Python backend for data
-      const response = await fetch('http://localhost:8000/api/message')
+      const response = await fetch('http://127.0.0.1:8000/api/message')
       const data = await response.json()
 
       // Update our variable with the message from Python

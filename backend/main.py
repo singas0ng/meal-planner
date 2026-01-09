@@ -1,10 +1,14 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+from sqlalchemy import text
 from fastapi.middleware.cors import CORSMiddleware
+import database
 
 app = FastAPI()
 
 origins = [
     "http://localhost:5173",
+    "http://127.0.0.1:5173",
 ]
 
 app.add_middleware(
@@ -18,3 +22,11 @@ app.add_middleware(
 @app.get("/api/message")
 def read_root():
     return {"message": "connected!!!!!!" }
+
+@app.get("/api/dbtest")
+def test_db_connection(db: Session = Depends(database.get_db)):
+    try:
+        db.execute(text("SELECT 1"))
+        return {"status": "success", "message": "Database connected!!!!"}
+    except Exception as e:
+        return {"status": "error", "message": f"Connection failed: {str(e)}"}
