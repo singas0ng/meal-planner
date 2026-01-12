@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import axios from 'axios';
-import BaseModal from '../components/BaseModal.vue'; // 👈 Import it
+import BaseModal from '../components/BaseModal.vue';
 
 const isLoading = ref(false);
 
