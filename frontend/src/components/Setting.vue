@@ -15,7 +15,6 @@ const resetSetting = ref({
   resetInterval: 7,
 });
 
-
 const notifySetting = ref({
   autoReset: false,
   resetInterval: 7,

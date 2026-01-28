@@ -1,10 +1,13 @@
 from sqlalchemy.orm import Session
 from models.meal import Meal
-from schemas.meal import MealCreate
+from schemas.meal import MealCreate, MealUpdate
+
+
+def get_meals(db: Session, skp: int = 0, limit: int=100):
+    return db.query(Meal).offset(skp).limit(limit).all()
 
 def create_meal(db: Session, meal: MealCreate) :
-
-    ex_user_id = "song@gmail.com"
+    ex_user_id = "03e7709e-801c-4a99-a4b3-f012a28c456d"
 
     db_meal = Meal(
         name=meal.name,
@@ -16,6 +19,14 @@ def create_meal(db: Session, meal: MealCreate) :
     db.refresh(db_meal)
     return db_meal
 
-def get_meals(db: Session, skp: int = 0, limit: int=100):
+def update_meal(db: Session, meal_id : int, meal: MealUpdate):
+    db_meal = db.query(Meal).filter(Meal.id == meal_id).first()
 
-    return db.query(Meal).offset(skp).limit(limit).all()
+    if not db_meal:
+        return None
+    
+    db_meal.name = meal.name
+
+    db.commit()
+    db.refresh(db_meal)
+    return db_meal
