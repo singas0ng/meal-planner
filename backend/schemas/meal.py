@@ -1,3 +1,4 @@
+from uuid import UUID
 from pydantic import BaseModel
 from datetime import datetime
 
@@ -10,12 +11,17 @@ class MealBase(BaseModel):
 class MealCreate(MealBase):
     pass
 
+class MealUpdate(MealBase):
+    name : str
+    # Optional[str] = None
+
 # sending data back to Frontend
 # includes all properties
 class MealResponse(MealBase):
     id: int
-    user_id: str
-    created_dt: datetime
+    user_id: UUID
+    create_dt: datetime
+    update_dt: datetime | None
 
     class Config:
         from_attributes = True
