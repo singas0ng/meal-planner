@@ -19,7 +19,7 @@ def create_meal(db: Session, meal: MealCreate) :
     db.refresh(db_meal)
     return db_meal
 
-def update_meal(db: Session, meal_id : int, meal: MealUpdate):
+def update_meal(db: Session, meal_id: int, meal: MealUpdate):
     db_meal = db.query(Meal).filter(Meal.id == meal_id).first()
 
     if not db_meal:

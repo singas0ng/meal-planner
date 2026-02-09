@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 from fastapi.middleware.cors import CORSMiddleware
 import database
-from routers import meal
+from routers import meal, ingredient, meal_ingredient, user
 
 app = FastAPI()
 
@@ -20,7 +20,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(user.router)
 app.include_router(meal.router)
+app.include_router(ingredient.router)
+app.include_router(meal_ingredient.router)
 
 
 @app.get("/api/message")

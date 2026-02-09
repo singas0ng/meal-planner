@@ -22,6 +22,8 @@ def create_meal(meal: MealCreate, db: Session = Depends(get_db)):
 @router.put("/{meal_id}", response_model=MealResponse)
 def update_meal(meal_id : int, meal: MealUpdate, db: Session = Depends(get_db)):
     update_meal = crud_meal.update_meal(db=db, meal_id=meal_id, meal=meal)
+    
     if update_meal is None:
         raise HTTPException(status_code=404, detail="Meal not found")
+    
     return update_meal
